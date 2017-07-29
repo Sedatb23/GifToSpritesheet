@@ -36,7 +36,7 @@ namespace Gif2Spritesheet
 
         /// <summary>
         /// Do worker logic.
-        /// Import all gifs...
+        /// Save all gifs as png spritesheets...
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -71,7 +71,7 @@ namespace Gif2Spritesheet
 
 
         /// <summary>
-        /// Show file
+        /// Show convert progress
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
