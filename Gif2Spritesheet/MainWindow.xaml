@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gif2Spritesheet"
         mc:Ignorable="d"
-        Title="MainWindow" Height="680" Width="455" ResizeMode="CanMinimize">
+        Title="Gif2Spritesheet" Height="680" Width="455" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="217*"/>
