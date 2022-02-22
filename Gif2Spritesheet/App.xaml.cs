@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Gif2Spritesheet.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using MvvmDialogs;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -12,5 +16,13 @@ namespace Gif2Spritesheet
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                    .AddSingleton<IDialogService, DialogService>()
+                    .AddTransient<MainViewModel>()
+                    .BuildServiceProvider());                    
+        }
     }
 }

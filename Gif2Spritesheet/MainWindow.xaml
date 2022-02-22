@@ -5,26 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gif2Spritesheet"
         mc:Ignorable="d"
-        Title="Gif2Spritesheet" Height="680" Width="455" ResizeMode="CanMinimize">
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        md:DialogServiceViews.IsRegistered="True"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}"
+        Title="Gif2Spritesheet" ResizeMode="CanMinimize">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="217*"/>
-            <ColumnDefinition Width="230*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btn_import" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="117.747,39,0,0" Click="btn_import_Click" ToolTip="Select import folder" Height="23" Grid.Column="1"/>
-        <TextBox x:Name="txt_import" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Select import folder" VerticalAlignment="Top" Width="294" Margin="25,39,0,0" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_import" Content="Import Folder" HorizontalAlignment="Left" Margin="20,15,0,0" VerticalAlignment="Top" FontSize="14"/>
 
+        <TextBlock  Grid.Column="0" Grid.Row="0" Text="Import Folder : " HorizontalAlignment="Left" />
+        <TextBox    Grid.Column="1" Grid.Row="0" Text="{Binding SourcePath,Mode=TwoWay}" x:Name="txt_import" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" IsEnabled="False"/>
+        <Button     Grid.Column="2" Grid.Row="0" Command="{Binding SelectFolderCommand}" CommandParameter="in" x:Name="btn_import" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" ToolTip="Select import folder" />
 
-        <Button x:Name="btn_export" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="117.747,89,0,0" Click="btn_export_Click" ToolTip="Select export folder" Height="23" Grid.Column="1"/>
-        <TextBox x:Name="txt_export" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Select export folder" VerticalAlignment="Top" Width="294" Margin="25,89,0,0" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_export" Content="Export Folder" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock  Grid.Column="0" Grid.Row="1" Text="Export Folder : " HorizontalAlignment="Left" />
+        <TextBox    Grid.Column="1" Grid.Row="1" Text="{Binding DestinationPath,Mode=TwoWay}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" IsEnabled="False"/>
+        <Button     Grid.Column="2" Grid.Row="1" Command="{Binding SelectFolderCommand}" CommandParameter="out" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" ToolTip="Select destination folder" />
+
+        <Button     Grid.Column="2" Grid.Row="2" x:Name="btn_run" Content="Export" IsEnabled="{Binding IsReady}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" ToolTip="Start converting"/>
+        
+        <!--<Slider x:Name="slider" VerticalAlignment="Top" Margin="25,141,9,0" ValueChanged="slider_ValueChanged"/>
+        <Label x:Name="lbl_columns_value" Content="0" HorizontalAlignment="Left" Margin="211,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Image x:Name="sprite" HorizontalAlignment="Left" Width="385" Margin="25,176,0,10" ClipToBounds="True" Grid.ColumnSpan="2" StretchDirection="DownOnly" Stretch="UniformToFill"/>
         <Label x:Name="lbl_columns" Content="Columns" HorizontalAlignment="Left" Margin="20,112,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Canvas Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="186" Margin="0,25,-615,0" VerticalAlignment="Top" Width="1064"/>
-        <Slider x:Name="slider" VerticalAlignment="Top" Margin="25,141,9,0" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="lbl_columns_value" Content="0" HorizontalAlignment="Left" Margin="211,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Button x:Name="btn_run" Content="Export" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="40,136,0,0" Click="btn_run_Click" ToolTip="Start converting" Height="23" Grid.Column="1"/>
-        <Label x:Name="lbl_run_progress" Content="" HorizontalAlignment="Left" Margin="129,130,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1"/>
+        <Label x:Name="lbl_run_progress" Content="" HorizontalAlignment="Left" Margin="129,130,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1"/>-->
+        
+        <Canvas      Grid.Column="0" Grid.Row="3"
+                     Grid.ColumnSpan="3" 
+                     HorizontalAlignment="Center" VerticalAlignment="Top"
+                     Height="200"
+                     Width="300"
+                     />
     </Grid>
 </Window>
