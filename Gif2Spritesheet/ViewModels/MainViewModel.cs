@@ -46,6 +46,19 @@ namespace Gif2Spritesheet.ViewModels
             }
         }
 
+        private string numberGIFs;
+
+        public string NumberGIFs
+        {
+            get => numberGIFs;
+            set
+            {
+                numberGIFs = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private byte[] displayImageInput;
 
         public byte[] DisplayImageInput
@@ -123,6 +136,8 @@ namespace Gif2Spritesheet.ViewModels
 
                 await result.SaveAsPngAsync(fn);
 
+                result.Dispose();
+
             }
         }
 
@@ -153,6 +168,8 @@ namespace Gif2Spritesheet.ViewModels
             gifs = new Dictionary<string, Image>();
             var files = Directory.GetFiles(folder);
 
+            var count = 0;
+
             foreach (var file in files)
             {
                 var ext = Path.GetExtension(file);
@@ -160,10 +177,12 @@ namespace Gif2Spritesheet.ViewModels
                 if (!ext.Equals(".gif")) continue;
 
                 gifs.Add(file, await Image.LoadAsync(file));
+                count += 1;
             }
 
             if (gifs.Count > 0)
             {
+                NumberGIFs = count.ToString();
                 FileLoaded = true;
                 await LoadFirstImage(gifs.First());
             }

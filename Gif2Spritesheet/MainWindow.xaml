@@ -41,12 +41,20 @@
                         Content="Browse" Width="75" ToolTip="Select destination folder" 
                         Command="{Binding SelectFolderCommand}" CommandParameter="out" />
 
+            <GroupBox Grid.Column="1" Grid.Row="3"
+                Header="Summary">
+                <WrapPanel>
+                    <TextBlock Text="Number of GIFs :"/>
+                    <TextBlock Text="{Binding NumberGIFs, Mode=OneWay}"/>
+                </WrapPanel>
+            </GroupBox>
+
             <Button     Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" 
                         Content="Export" IsEnabled="{Binding IsReady}" 
                         Width="75" ToolTip="Start converting"
                         Command="{Binding ExportCommand}"/>
 
-            <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
+            <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                       HorizontalAlignment="Center"
                       Header="Sample">
                 <StackPanel>
