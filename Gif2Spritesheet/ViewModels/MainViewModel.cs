@@ -16,9 +16,11 @@ namespace Gif2Spritesheet.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public DelegateCommand<string> SelectFolderCommand { get; set; }
-        public DelegateCommand<string> ExportCommand { get; set; }
-
+        public AsyncDelegateCommand ExportCommand { get; set; }
+        
         private readonly IDialogService dialogService;
+
+        private Dictionary<string, Image> gifs;
 
         private bool fileLoaded = false;
 
@@ -67,12 +69,24 @@ namespace Gif2Spritesheet.ViewModels
             this.dialogService = dialogService;
 
             SelectFolderCommand = new DelegateCommand<string>(SelectInputFolder);
-            ExportCommand = new DelegateCommand<string>(Export);
+            ExportCommand = new AsyncDelegateCommand(Export);
         }
 
-        private void Export(string obj)
+        private async Task Export()
         {
-            throw new NotImplementedException();
+            string ext = ".png";
+
+            foreach (var item in gifs)
+            {
+                var fn = Path.GetFileName(item.Key);
+                fn = Path.ChangeExtension(fn, ext);
+                fn = Path.Combine(DestinationPath, fn);
+
+                Image result = await GifToSpritesheet.Convert(item.Value);
+
+                await result.SaveAsPngAsync(fn);
+
+            }
         }
 
 
@@ -99,7 +113,7 @@ namespace Gif2Spritesheet.ViewModels
 
         private async Task LoadFiles(string folder)
         {
-            var gifs = new Dictionary<string, Image>();
+            gifs = new Dictionary<string, Image>();
             var files = Directory.GetFiles(folder);
 
             foreach (var file in files)
