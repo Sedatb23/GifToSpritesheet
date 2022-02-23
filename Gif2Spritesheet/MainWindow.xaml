@@ -9,40 +9,55 @@
         md:DialogServiceViews.IsRegistered="True"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}"
         Title="Gif2Spritesheet"
-        Width="600" Height="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
+        MinWidth="500" MinHeight="350"
+        Width="500" Height="350">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom" Height="auto">
+            <TextBlock Text="File : "/>
+            <TextBlock Text="{Binding CurrentFilename, Mode=OneWay}"/>
+        </StatusBar>
 
-        <TextBlock  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Import Folder : " />
-        <TextBox    Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="{Binding SourcePath,Mode=TwoWay}" Height="23" TextWrapping="Wrap" Width="300" IsEnabled="False"/>
-        <Button     Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectFolderCommand}" CommandParameter="in" Content="Browse" Width="75" ToolTip="Select import folder" />
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="Export Folder : " />
-        <TextBox    Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="{Binding DestinationPath,Mode=TwoWay}" Height="23" TextWrapping="Wrap" Width="300" IsEnabled="False"/>
-        <Button     Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" 
-                    Content="Browse" Width="75" ToolTip="Select destination folder" 
-                    Command="{Binding SelectFolderCommand}" CommandParameter="out" />
+            <TextBlock  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Import Folder : " />
+            <TextBox    Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="{Binding SourcePath,Mode=TwoWay}" Height="23" TextWrapping="Wrap" Width="300" IsEnabled="False"/>
+            <Button     Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectFolderCommand}" CommandParameter="in" Content="Browse" Width="75" ToolTip="Select import folder" />
 
-        <Button     Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" 
-                    Content="Export" IsEnabled="{Binding IsReady}" 
-                    Width="75" ToolTip="Start converting"
-                    Command="{Binding ExportCommand}"/>
+            <TextBlock  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="Export Folder : " />
+            <TextBox    Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="{Binding DestinationPath,Mode=TwoWay}" Height="23" TextWrapping="Wrap" Width="300" IsEnabled="False"/>
+            <Button     Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" 
+                        Content="Browse" Width="75" ToolTip="Select destination folder" 
+                        Command="{Binding SelectFolderCommand}" CommandParameter="out" />
 
-        <!--Source="{Binding DisplayImage, Converter={StaticResource ImageLoadingConverter}}"-->
-        <Image Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
-               Stretch="Uniform"               
-                Source="{Binding DisplayImage}"
-               />
+            <Button     Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" 
+                        Content="Export" IsEnabled="{Binding IsReady}" 
+                        Width="75" ToolTip="Start converting"
+                        Command="{Binding ExportCommand}"/>
 
-    </Grid>
+            <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
+                      HorizontalAlignment="Center"
+                      Header="Sample">
+                <StackPanel>
+                    <Image
+                        Source="{Binding DisplayImageInput, Converter={StaticResource NullImageConverter}}"/>
+                    <Image 
+                        Source="{Binding DisplayImageOutput, Converter={StaticResource NullImageConverter}}"
+                        Stretch="None" />
+                </StackPanel>
+            </GroupBox>
+
+        </Grid>
+    </DockPanel>
 </Window>

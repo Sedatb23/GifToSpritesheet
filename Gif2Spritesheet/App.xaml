@@ -9,5 +9,17 @@
         <local:ViewModelLocator
             x:Key="Locator"/>
         <conv:ImageLoadingConverter x:Key="ImageLoadingConverter"/>
+        <conv:NullImageConverter x:Key="NullImageConverter"/>
+        
+        <Style x:Key="allMargins">
+            <Setter Property="Control.Margin" Value="3"/>
+        </Style>
+        
+        <Style BasedOn="{StaticResource allMargins}" TargetType="{x:Type Button}"/>
+        <Style BasedOn="{StaticResource allMargins}" TargetType="{x:Type TextBlock}"/>
+        <Style BasedOn="{StaticResource allMargins}" TargetType="{x:Type DatePicker}"/>
+        <Style BasedOn="{StaticResource allMargins}" TargetType="{x:Type Image}"/>
+
+        <Style BasedOn="{StaticResource allMargins}" TargetType="{x:Type TextBox}"/>
     </Application.Resources>
 </Application>

@@ -25,7 +25,7 @@ namespace Gif2Spritesheet.Converters
             var img = (Image)value;
             var stream = new MemoryStream();
             img.SaveAsBmp(stream);
-            
+
             return stream;
         }
 

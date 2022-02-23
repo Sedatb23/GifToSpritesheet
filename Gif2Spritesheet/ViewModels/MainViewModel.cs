@@ -21,6 +21,18 @@ namespace Gif2Spritesheet.ViewModels
 
         private Dictionary<string, Image> gifs;
 
+        private string currentFilename;
+
+        public string CurrentFilename
+        {
+            get { return currentFilename; }
+            set {
+                currentFilename = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private bool fileLoaded = false;
 
         public bool FileLoaded
@@ -34,23 +46,35 @@ namespace Gif2Spritesheet.ViewModels
             }
         }
 
-        private byte[] displayImage;
+        private byte[] displayImageInput;
 
-        public byte[] DisplayImage
+        public byte[] DisplayImageInput
         {
             get { 
-                return displayImage;
+                return displayImageInput;
             }
             set { 
-                displayImage = value;
+                displayImageInput = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private byte[] displayImageOutput;
+
+        public byte[] DisplayImageOutput
+        {
+            get => displayImageOutput;
+            set
+            {
+                displayImageOutput = value;
                 OnPropertyChanged();
             }
         }
 
 
         public bool IsReady => FileLoaded && 
-            SourcePath != string.Empty && 
-            DestinationPath != string.Empty;
+            !string.IsNullOrEmpty(SourcePath) &&
+            !string.IsNullOrEmpty(DestinationPath);
 
         private string sourcePath;
 
@@ -140,19 +164,23 @@ namespace Gif2Spritesheet.ViewModels
 
             if (gifs.Count > 0)
             {
-
-                //var result = await GifToSpritesheet.Convert(gifs.First().Value);
-
-                //result.SaveAsPng("temp.png");
                 FileLoaded = true;
-                var img = gifs.First().Value;
-
-                MemoryStream stream = new MemoryStream();
-                img.SaveAsBmp(stream);
-                DisplayImage = stream.ToArray();
-
+                await LoadFirstImage(gifs.First());
             }
 
+        }
+
+        private async Task LoadFirstImage(KeyValuePair<string, Image> img)
+        {
+            MemoryStream stream = new MemoryStream();
+            await img.Value.SaveAsBmpAsync(stream);
+            DisplayImageInput = stream.ToArray();
+            CurrentFilename = img.Key;
+
+            var streamOutput = new MemoryStream();
+            Image result = await GifToSpritesheet.Convert(img.Value);
+            await result.SaveAsBmpAsync(streamOutput);
+            DisplayImageOutput = streamOutput.ToArray();
         }
 
     }
