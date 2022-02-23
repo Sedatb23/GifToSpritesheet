@@ -3,13 +3,12 @@ using Gif2Spritesheet.Converters;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.FolderBrowser;
 using SixLabors.ImageSharp;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp.Advanced;
 
 namespace Gif2Spritesheet.ViewModels
 {
@@ -34,6 +33,20 @@ namespace Gif2Spritesheet.ViewModels
                 OnPropertyChanged(nameof(IsReady));
             }
         }
+
+        private byte[] displayImage;
+
+        public byte[] DisplayImage
+        {
+            get { 
+                return displayImage;
+            }
+            set { 
+                displayImage = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public bool IsReady => FileLoaded && 
             SourcePath != string.Empty && 
@@ -68,7 +81,7 @@ namespace Gif2Spritesheet.ViewModels
         {
             this.dialogService = dialogService;
 
-            SelectFolderCommand = new DelegateCommand<string>(SelectInputFolder);
+            SelectFolderCommand = new DelegateCommand<string>(SelectFolder);
             ExportCommand = new AsyncDelegateCommand(Export);
         }
 
@@ -90,7 +103,7 @@ namespace Gif2Spritesheet.ViewModels
         }
 
 
-        private void SelectInputFolder(string direction)
+        private void SelectFolder(string direction)
         {
 #pragma warning disable CA1416 // Validate platform compatibility
             var settings = new FolderBrowserDialogSettings
@@ -125,10 +138,21 @@ namespace Gif2Spritesheet.ViewModels
                 gifs.Add(file, await Image.LoadAsync(file));
             }
 
-            //var result = await GifToSpritesheet.Convert(gifs.First().Value);
+            if (gifs.Count > 0)
+            {
 
-            //result.SaveAsPng("temp.png");
-            FileLoaded = true;
+                //var result = await GifToSpritesheet.Convert(gifs.First().Value);
+
+                //result.SaveAsPng("temp.png");
+                FileLoaded = true;
+                var img = gifs.First().Value;
+
+                MemoryStream stream = new MemoryStream();
+                img.SaveAsBmp(stream);
+                DisplayImage = stream.ToArray();
+
+            }
+
         }
 
     }

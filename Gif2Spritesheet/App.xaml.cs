@@ -2,11 +2,6 @@
 using Gif2Spritesheet.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using MvvmDialogs;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq; 
 using System.Windows;
 
 namespace Gif2Spritesheet
@@ -18,6 +13,8 @@ namespace Gif2Spritesheet
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Src : https://github.com/FantasticFiasco/mvvm-dialogs
+            // Inversion of control
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
                     .AddSingleton<IDialogService, DialogService>()

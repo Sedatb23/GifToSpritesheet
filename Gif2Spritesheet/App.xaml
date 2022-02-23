@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Gif2Spritesheet"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:Gif2Spritesheet.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:ViewModelLocator
             x:Key="Locator"/>
+        <conv:ImageLoadingConverter x:Key="ImageLoadingConverter"/>
     </Application.Resources>
 </Application>

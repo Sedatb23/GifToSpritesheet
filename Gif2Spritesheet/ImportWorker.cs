@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace Gif2Spritesheet
 {
-    class ImportWorker
-    {
+    //class ImportWorker
+    //{
         //private readonly BackgroundWorker _worker;
         //private readonly MainWindow _window;
 
@@ -98,5 +98,5 @@ namespace Gif2Spritesheet
         //        _window.CheckRunStatus();
         //    }));
         //}
-    }
+    // }
 }

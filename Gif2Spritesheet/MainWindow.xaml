@@ -9,7 +9,7 @@
         md:DialogServiceViews.IsRegistered="True"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}"
         Title="Gif2Spritesheet"
-        MinWidth="600" MinHeight="400">
+        Width="600" Height="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -38,19 +38,11 @@
                     Width="75" ToolTip="Start converting"
                     Command="{Binding ExportCommand}"/>
 
-        <Canvas     Grid.Column="0" Grid.Row="3"
-                    Grid.ColumnSpan="3" 
-                    HorizontalAlignment="Center" VerticalAlignment="Top"
-                    Height="200"
-                    Width="300"
-                    />
-
-        <!--<Slider x:Name="slider" VerticalAlignment="Top" Margin="25,141,9,0" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="lbl_columns_value" Content="0" HorizontalAlignment="Left" Margin="211,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Image x:Name="sprite" HorizontalAlignment="Left" Width="385" Margin="25,176,0,10" ClipToBounds="True" Grid.ColumnSpan="2" StretchDirection="DownOnly" Stretch="UniformToFill"/>
-        <Label x:Name="lbl_columns" Content="Columns" HorizontalAlignment="Left" Margin="20,112,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="lbl_run_progress" Content="" HorizontalAlignment="Left" Margin="129,130,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1"/>-->
-        
+        <!--Source="{Binding DisplayImage, Converter={StaticResource ImageLoadingConverter}}"-->
+        <Image Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
+               Stretch="Uniform"               
+                Source="{Binding DisplayImage}"
+               />
 
     </Grid>
 </Window>

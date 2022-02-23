@@ -35,6 +35,18 @@ namespace Gif2Spritesheet.Converters
             return result;
         }
 
+        private static void WriteFrameToImage(ImageFrame<Rgba32> imageFrame, Image<Rgba32> result, int xOffset = 0, int yOffset = 0)
+        {
+            Parallel.For(0, imageFrame.Height, (y, state) =>
+            {
+                Parallel.For(0, imageFrame.Width, (x, stateCol) =>
+                {
+                    result[x + xOffset, y + yOffset] = imageFrame[x, y];
+                });
+            });
+        }
+
+        #region obsolete
         // Src : https://khalidabuhakmeh.com/gifs-in-console-output-imagesharp-and-spectreconsole
         private static async Task<byte[]> GetBytesFromFrameAsync(ImageFrame<Rgba32> imageFrame, CancellationTokenSource cancellationTokenSource = null)
         {
@@ -56,16 +68,6 @@ namespace Gif2Spritesheet.Converters
 
             return memoryStream.ToArray();
         }
-
-        private static void WriteFrameToImage(ImageFrame<Rgba32> imageFrame, Image<Rgba32> result, int xOffset = 0, int yOffset = 0)
-        {
-            Parallel.For(0, imageFrame.Height, (y, state) =>
-            {
-                Parallel.For(0, imageFrame.Width, (x, stateCol) =>
-                {
-                    result[x + xOffset, y + yOffset] = imageFrame[x, y];
-                });
-            });
-        }
+        #endregion
     }
 }
