@@ -29,6 +29,7 @@ namespace Gif2Spritesheet.ViewModels
             set {
                 currentFilename = value;
                 OnPropertyChanged();
+
             }
         }
 
