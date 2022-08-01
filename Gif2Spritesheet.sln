@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gif2Spritesheet", "Gif2Spritesheet\Gif2Spritesheet.csproj", "{5DF24D28-0508-44F7-913A-FDD7806B6AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gif2Spritesheet", "Gif2Spritesheet\Gif2Spritesheet.csproj", "{5DF24D28-0508-44F7-913A-FDD7806B6AB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +19,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3703952-7294-479E-94E3-F48C4567E70B}
 	EndGlobalSection
 EndGlobal
